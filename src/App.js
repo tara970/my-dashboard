@@ -6,12 +6,14 @@ import Dashboard from './pages/dashboard'
 import Products from './pages/products'
 import Orders from './pages/orders'
 import Users from './pages/users'
+import Home from './pages/home'
 
 
 function App() {
   return (
     <Router>
       <Routes>
+        <Route path='/' element={<Home/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/dashboard' element={<ProtectedRoute><Dashboard/></ProtectedRoute>}/>
         <Route path='/products' element={<ProtectedRoute><Products/></ProtectedRoute>}/>
