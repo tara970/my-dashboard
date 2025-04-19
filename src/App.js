@@ -17,6 +17,7 @@ function App() {
         <Route path='/products' element={<ProtectedRoute><Products/></ProtectedRoute>}/>
         <Route path='/orders' element={<ProtectedRoute><Orders/></ProtectedRoute>}/>
         <Route path='/users' element={<ProtectedRoute><Users/></ProtectedRoute>}/>
+        <Route path='*' element={<Navigate to='/'/>}/>
       </Routes>
     </Router>
   )
