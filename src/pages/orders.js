@@ -77,7 +77,8 @@ function Orders() {
     const totalOrders = filteredOrders.length;
     const totalRevenue = filteredOrders.reduce((sum, order)=>{
         const product = findProductById(order.productId);
-        return sum + (product ? product.price * product.quantity : 0);
+        const quantity = Number(order.quantity) || 0;
+        return sum + (product ? (product.price || 0) * quantity : 0);
     },0);
   
     return (
