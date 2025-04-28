@@ -11,8 +11,8 @@ function Home() {
            :برای ادامه یکس از مسیرهای زیر رو انتخاب کنید
         </p>
         <div>
-            <Link to='/login' className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-full shadow-md"></Link>
-            <Link to='/dashboard' className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-full shadow-md"></Link>
+            <Link to='/login' className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-full shadow-md">ورود</Link>
+            <Link to='/dashboard' className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-full shadow-md">داشبورد</Link>
         </div>
     </div>
   )

@@ -130,7 +130,7 @@ function Orders() {
                                 <div>قیمت : {product?.price || "?"}</div>
                             </div>
                             <button onClick={()=> handleDeleteOrder(order.id)}
-                                className='bg-rd-500 text-white px-4 py-2 rounded hover:bg-red-600'>
+                                className='bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600'>
                                  حذف
                             </button>
                             <button onClick={()=> handleDelivered(order.id)}
