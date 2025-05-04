@@ -70,7 +70,7 @@ function Products() {
       productId,
       quantity:1,
       delivered: false,
-      data:new Date().toLocaleDateString('fa-IR')
+      date:new Date().toLocaleDateString('fa-IR')
     };
 
      localStorage.setItem("orders", JSON.stringify([...orders,newOrder]));

@@ -6,7 +6,7 @@ function DashboardLayout({children}) {
   return (
     <div className='flex min-h-screen'>
         <Sidebar/>
-        <div className='flex1-1 bg-gray-100'>
+        <div className='flex-1 bg-gray-100'>
             <Navbar/>
             <main className='p-4'>{children}</main>
         </div>
