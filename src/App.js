@@ -7,21 +7,26 @@ import Products from './pages/products'
 import Orders from './pages/orders'
 import Users from './pages/users'
 import Home from './pages/home'
+import { AuthProvider } from './context/authContext'
 
 
 function App() {
   return (
-    <Router>
+    <AuthProvider>
+      <Router>
       <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/login' element={<Login/>}/>
-        <Route path='/dashboard' element={<ProtectedRoute><Dashboard/></ProtectedRoute>}/>
-        <Route path='/products' element={<ProtectedRoute><Products/></ProtectedRoute>}/>
-        <Route path='/orders' element={<ProtectedRoute><Orders/></ProtectedRoute>}/>
-        <Route path='/users' element={<ProtectedRoute><Users/></ProtectedRoute>}/>
+      <Route exact path='/' element={<Home/>}/>
+      <Route path='/login' element={<Login/>}/>
+        <Route  element={<ProtectedRoute/>}>
+        <Route path='/dashboard' element={<Dashboard/>}/>
+        <Route path='/products' element={<Products/>}/>
+        <Route path='/orders' element={<Orders/>}/>
+        <Route path='/users' element={<Users/>}/>
+        </Route>
         <Route path='*' element={<Navigate to='/'/>}/>
       </Routes>
     </Router>
+    </AuthProvider>
   )
 }
 
