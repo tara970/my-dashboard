@@ -7,12 +7,10 @@ import Products from './pages/products'
 import Orders from './pages/orders'
 import Users from './pages/users'
 import Home from './pages/home'
-import { AuthProvider } from './context/authContext'
 
 
 function App() {
   return (
-    <AuthProvider>
       <Router>
       <Routes>
       <Route exact path='/' element={<Home/>}/>
@@ -26,7 +24,6 @@ function App() {
         <Route path='*' element={<Navigate to='/'/>}/>
       </Routes>
     </Router>
-    </AuthProvider>
   )
 }
 

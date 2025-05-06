@@ -83,12 +83,12 @@ function Orders() {
   
     return (
       <DashboardLayout>
-        <h2 className='text-2xl font-bold mb-6'>سفار شات</h2>
+        <h2 className='text-2xl font-bold mb-6 dark:text-red-500'>سفارشات</h2>
 
-        <div className='mb-6'>
+        <div className='mb-6 dark:bg-gray-900 dark:text-white p-2'>
             <label className='block mb-2 font-medium'>فیلتر بر اساس محصول:</label>
             <select value={selectedProductId} onChange={(e)=>{setSelectedProductId(e.target.value)}}
-                className='border rounded p-2 w-18'>
+                className='border rounded p-2 w-18 dark:bg-gray-900'>
                 <option value="all">همه</option>
                 {products.map((product)=>{
                    return <option value={product.id} key={product.id}>{product.title}</option>
@@ -96,14 +96,14 @@ function Orders() {
             </select>
         </div>
 
-        <div className='mb-8'>
-            <h4 className='text-xl font-semibold mb-2'>گزارش ها</h4>
+        <div className='mb-8 dark:bg-gray-900 p-4 dark:text-white'>
+            <h4 className='text-xl font-semibold mb-2 dark:text-gray-500'>گزارش ها</h4>
             <p className='mb-1'>تعداد سفارش ها: {totalOrders}</p>
             <p>مجموع درامد: {totalRevenue}</p>
         </div>
 
-        {filteredOrders.length === 0 ? (<p className='text-gray-500'>سفارشی ثبت نشده</p>):(
-            <ul className='space-y-6'>
+        {filteredOrders.length === 0 ? (<p className='text-gray-500 dark:text-white'>سفارشی ثبت نشده</p>):(
+            <ul className='space-y-6  dark:bg-gray-900 dark:text-gray-300'>
                 {filteredOrders.map((order)=>{
                     const product = findProductById(order.productId);
                     return(
@@ -114,7 +114,7 @@ function Orders() {
                                 <div className='flex items-center gap-2'>تعداد : 
                                  {editingOrders === order.id ? (
                                     <>
-                                     <input type='number' value={editedQuantity} onChange={(e)=>{setEditedQuantity(e.target.value)}} className='border rounded px-2 py-1 w-16'/>
+                                     <input type='number' value={editedQuantity} onChange={(e)=>{setEditedQuantity(e.target.value)}} className='border rounded px-2 py-1 w-16 dark:bg-gray-700'/>
                                      <button 
                                      className='bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600' onClick={()=>handleSave(order.id)}>ذخیره</button>
                                     </>
@@ -122,7 +122,7 @@ function Orders() {
                                     <>
                                        {order.quantity}
                                        <button onClick={()=>handleEditClick(order)}
-                                        className='text-blue-500 hover:underline'>ویرایش</button>
+                                        className='text-blue-500 hover:underline dark:text-red-500'>ویرایش</button>
                                     </>
                                  )
                                  }
@@ -130,11 +130,12 @@ function Orders() {
                                 <div>قیمت : {product?.price || "?"}</div>
                             </div>
                             <button onClick={()=> handleDeleteOrder(order.id)}
-                                className='bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600'>
+                                className='bg-red-500 text-white px-2 py-2 w-48 rounded hover:bg-red-600'>
                                  حذف
                             </button>
                             <button onClick={()=> handleDelivered(order.id)}
-                                className='bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600'>تحویل داده شد</button>
+                                className='bg-blue-500 text-white px-4 py-2 w-48 rounded hover:bg-blue-600'>تحویل داده شد</button>
+                                <img src={product.thumbnail} style={{width:'200px', height:'200px', marginLeft:'50rem', marginTop:'-13rem'}} className='dark:bg-gray-900'/>
                         </li>
                     )
                 })}
