@@ -34,21 +34,23 @@ function Dashboard() {
  
    return (
      <DashboardLayout>
-       <h2>داشبورد</h2>
+       <h2 className='size-lg text-gray-400 dark:text-red-500 mb-5 dark:bg-gray-900 p-4'>داشبورد</h2>
  
-       <div style={{ display: 'flex', justifyContent: 'space-around', marginBottom: '30px' }}>
+       <div style={{ display: 'flex', justifyContent: 'space-around', marginBottom: '30px', padding: '7px' }} 
+         className='dark:bg-gray-900 dark:text-white'
+       >
          <div>تعداد محصولات: {products.length}</div>
          <div>تعداد سفارشات: {orders.length}</div>
          <div>تعداد کاربران: {users.length}</div>
        </div>
  
-       <BarChart width={500} height={300} data={data}>
-         <CartesianGrid strokeDasharray="3 3" />
-         <XAxis dataKey="name" />
+       <BarChart width={800} height={400} data={data} className='dark:bg-gray-900 p-3'>
+         <CartesianGrid strokeDasharray="5 5" />
+         <XAxis dataKey="name"/>
          <YAxis />
          <Tooltip />
          <Legend />
-         <Bar dataKey="تعداد" fill="#8884d8" />
+         <Bar dataKey="تعداد" fill="red" />
        </BarChart>
      </DashboardLayout>
   )
