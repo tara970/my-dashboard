@@ -16,6 +16,7 @@ function Sidebar() {
           <NavLink to='/products' className='hover:text-blue-500'>محصولات</NavLink>
           <NavLink to='/orders' className='hover:text-blue-500'>سفارشات</NavLink>
           <NavLink to='/users' className='hover:text-blue-500'>کاربران</NavLink>
+          <NavLink to='/favorite' className='hover:text-blue-500'>علاقه مندیها</NavLink>
         </nav>
         <button onClick={toggleTheme} className='bg-gray-500 rounded dark:bg-white dark:text-gray-700'
         style={{marginLeft:'5rem', width:'3rem'}}>{darkMode ? "light" : "dark"}</button>

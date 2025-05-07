@@ -9,14 +9,21 @@ export const AuthProvider = ({children}) =>{
     const [darkMode, setDarkMode] = useState(()=>{
        return localStorage.getItem("darkMode") === "true";
     });
+    const [favorites, setFavorites] = useState([]); 
+    
+    useEffect(()=>{
+       const storedFavorite = JSON.parse(localStorage.getItem('favorites')|| '[]');
+       setFavorites(storedFavorite);
+    },[])
 
-    //useEffect(()=>{
-         // const token = localStorage.getItem("token");
-          //const saveTheme = localStorage.getItem("darkMode");
-          //setIsAuthenticated(!!token);
-         // setDarkMode(saveTheme === "true");
-         // setLoading(false);
-   // },[])
+    const toggleFavorite = (product) => {
+         const exites = favorites.some(p => p.id === product.id);
+         const update = exites ? favorites.filter(p => p.id !== product.id):
+         [...favorites, product];
+
+         setFavorites(update);
+         localStorage.setItem("favorites", JSON.stringify(update));
+    }
 
 
     useEffect(()=>{
@@ -58,7 +65,7 @@ const logout = () =>{
 };
 
 return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, loading, toggleTheme, darkMode }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout, loading, toggleTheme, darkMode, toggleFavorite, favorites }}>
       {children}
     </AuthContext.Provider>
   );

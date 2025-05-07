@@ -7,6 +7,7 @@ import Products from './pages/products'
 import Orders from './pages/orders'
 import Users from './pages/users'
 import Home from './pages/home'
+import Favorite from './pages/favorite'
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path='/products' element={<Products/>}/>
         <Route path='/orders' element={<Orders/>}/>
         <Route path='/users' element={<Users/>}/>
+        <Route path='/favorite' element={<Favorite/>}/>
         </Route>
         <Route path='*' element={<Navigate to='/'/>}/>
       </Routes>
