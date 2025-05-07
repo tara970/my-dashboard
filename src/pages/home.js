@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 function Home() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-100 to-purple-200 p-8 dark:bg-gradient-to-br from-gray-800 to-gray-900">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-100 to-purple-200 p-8 dark:bg-gradient-to-br from-gray-900 to-gray-800">
         <h1 className="text-4xl font-bold text-gray-800 mb-6 dark:text-gray-300">
             به داشبورد ما خوش امدید🌟
         </h1>

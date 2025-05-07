@@ -2,6 +2,7 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import DashboardLayout from '../component/dashboardLayout'
 import axios from 'axios';
+import FavoriteButton from '../component/favoriteButton';
 
 function Products() {
   
@@ -24,7 +25,7 @@ function Products() {
 
    const filteredProducts = products.filter(p =>{
     const matchCategory = selectedCategory === "all" || p.category === selectedCategory;
-    const matchSearch = !searchTerm || p.title.toString().includes(searchTerm.toString());
+    const matchSearch = !searchTerm.trim() || p.title.toString().includes(searchTerm.trim().toString());
     return matchCategory && matchSearch;
    })
   
@@ -76,6 +77,7 @@ function Products() {
         </h2>
         <select value={selectedCategory} onChange={(e)=>{setSelectedCategory(e.target.value);
             setSearchTerm("");
+            setSearchInput("");
         }}
           className='mb-4 border p-2 rounded dark:bg-gray-800 text-gray-400 w-12'
           style={{marginLeft:'4rem'}}> 
@@ -85,7 +87,7 @@ function Products() {
             ))
           }
         </select>
-        <input className='border p-2 rounded flex-1 w-80 dark:bg-gray-900 border border-gray-300'
+        <input className='border p-2 rounded flex-1 w-80 dark:bg-gray-900 border border-gray-300 dark:text-white'
            type='text'
            placeholder='جستوجو بر اساس نام محصول...'
            onKeyDown={(e)=>{ if(e.key === "Enter"){
@@ -118,6 +120,7 @@ function Products() {
                         <p className='font-bold mt-2 dark:text-white'>{product.price}</p>
                         <button onClick={()=> handleAddToOrder(product.id)}
                           className='bg-blue-600 text-white px-4 py-2 m-3 rounded'>افزودن به سفارش</button>
+                         <FavoriteButton product={product}/> 
                     </li>
                 ))
                 ) : (<p>محصولی یافت نشد</p>)
