@@ -5,10 +5,11 @@ function Orders() {
   
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
-  const [selectedProductId, setSelectedProductId] = useState("all");
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const [filteredOrders, setFilterdeOrders] = useState([]);
   const [editingOrders, setEditingOrders] = useState(null);
   const [editedQuantity, setEditedQuantity] = useState(1);
+  const [categoriesInOrder, setCategoriesInOrder] = useState([]);
 
   useEffect(()=>{
      const storedOrders = localStorage.getItem("orders");
@@ -23,16 +24,33 @@ function Orders() {
      }
   },[]);
 
+
+  useEffect(()=>{
+      const usedCategory = [];
+      orders.forEach((order) => {
+        const product = products.find(p => p.id === order.productId);
+        if(product && !usedCategory.includes(product.category)){
+             usedCategory.push(product.category);
+        }
+      })
+      setCategoriesInOrder(usedCategory);
+  },[orders, products])
+
+
    useEffect(()=>{
       let orderActive = orders.filter((order)=> !order.delivered)  
      
-    if(selectedProductId === "all"){
+    if(selectedCategory === "all"){
           setFilterdeOrders(orderActive);
        }else{
-          const filtered = orderActive.filter((order)=> order.productId === Number(selectedProductId));
+          const filtered = orderActive.filter((order)=> {
+             const product = findProductById(order.productId);
+             return product && product.category === selectedCategory;
+          });
           setFilterdeOrders(filtered);
        }
-   },[selectedProductId, orders])
+   },[selectedCategory, orders, products])
+
 
    const handleEditClick = (order) =>{
        setEditingOrders(order.id);
@@ -87,11 +105,11 @@ function Orders() {
 
         <div className='mb-6 dark:bg-gray-900 dark:text-white p-2'>
             <label className='block mb-2 font-medium'>فیلتر بر اساس محصول:</label>
-            <select value={selectedProductId} onChange={(e)=>{setSelectedProductId(e.target.value)}}
+            <select value={selectedCategory} onChange={(e)=>{setSelectedCategory(e.target.value)}}
                 className='border rounded p-2 w-18 dark:bg-gray-900'>
                 <option value="all">همه</option>
-                {products.map((product)=>{
-                   return <option value={product.id} key={product.id}>{product.title}</option>
+                {categoriesInOrder.map((cat, index)=>{
+                   return <option value={cat} key={index}>{cat}</option>
                 })}
             </select>
         </div>
