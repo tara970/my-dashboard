@@ -125,7 +125,7 @@ function Orders() {
                 {filteredOrders.map((order)=>{
                     const product = findProductById(order.productId);
                     return(
-                        <li className='border p-4 roundedshadow-md flex flex-col gap-2'>
+                        <li key={order.id} className='border p-4 roundedshadow-md flex flex-col gap-2'>
                             <div className='space-y-2'>
                                 <div>محصول :<span className='font-semibold'> {product?.title || "نامشخص"}</span></div>
                                 <div>تاریخ سفارش : {order.date}</div>

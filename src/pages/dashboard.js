@@ -8,11 +8,13 @@ function Dashboard() {
    const [products, setProducts] = useState([]);
    const [orders, setOrders] = useState([]);
    const [users, setUsers] = useState([]);
+   const [favorites, setFavorites] = useState([]);
  
    useEffect(() => {
      setProducts(JSON.parse(localStorage.getItem('products')) || []);
      setOrders(JSON.parse(localStorage.getItem('orders')) || []);
      setUsers(JSON.parse(localStorage.getItem('users')) || []);
+     setFavorites(JSON.parse(localStorage.getItem("favorites")) || []);
    }, []);
 
    const pendingOrders = orders.filter(order => !order.delivered);
@@ -30,6 +32,10 @@ function Dashboard() {
        name: 'کاربران',
        تعداد: users.length,
      },
+     {
+       name: 'علافه مندیها',
+       تعداد: favorites.length,
+     }
    ];
  
    return (
@@ -42,10 +48,11 @@ function Dashboard() {
          <div>تعداد محصولات: {products.length}</div>
          <div>تعداد سفارشات: {orders.length}</div>
          <div>تعداد کاربران: {users.length}</div>
+         <div>تعداد علاقه مندیها: {favorites.length}</div>
        </div>
  
-       <BarChart width={800} height={400} data={data} className='dark:bg-gray-900 p-3'>
-         <CartesianGrid strokeDasharray="5 5" />
+       <BarChart width={800} height={400} data={data} className='dark:bg-gray-900 p-3' style={{marginLeft:'6rem'}}>
+         <CartesianGrid strokeDasharray="5 5"/>
          <XAxis dataKey="name"/>
          <YAxis />
          <Tooltip />
