@@ -13,18 +13,34 @@ function Products() {
   const [categories, setCategories] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchInput, setSearchInput] = useState("");
+  const [description, setDescription] = useState("");
+  const [thumbnailFile, setThumbnailFile] = useState(null);
 
-   useEffect(()=>{
-     axios.get('https://dummyjson.com/products').then
+  
+  useEffect(() => {
+    const storedUser = localStorage.getItem("currentUser");
+    if (!storedUser) {
+      alert("لطفا ابتدا وارد شوید.");
+    }
+  }, []);
+  
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const isAddmin = currentUser && currentUser.email === "admin@shop.com";
+  
+  
+  
+  useEffect(()=>{
+     
+    axios.get('https://dummyjson.com/products').then
      (res => {
       setProducts(res.data.products);
       const uniqueCategory = ["all", ...new Set(res.data.products.map((p)=> p.category))];
       setCategories(uniqueCategory);
      })
-   })
+   },[])
 
    const filteredProducts = products.filter(p =>{
-    const matchCategory = selectedCategory === "all" || p.category === selectedCategory;
+    const matchCategory = selectedCategory === "all" || p.category === selectedCategory || (selectedCategory === "all" && p.category === "new");
     const matchSearch = !searchTerm.trim() || p.title.toString().includes(searchTerm.trim().toString());
     return matchCategory && matchSearch;
    })
@@ -33,24 +49,56 @@ function Products() {
   useEffect(()=>{
         localStorage.setItem("products",JSON.stringify(products));
   },[products]);
+  
 
-  const handleAddProduct = (e) =>{
+  const handleAddProduct = async (e) =>{
        e.preventDefault();
-       if(!title || !price){
+   console.log("isadmin",isAddmin);
+   console.log("currentuser",currentUser);
+   
+   
+       if(!isAddmin){
+        alert("شما مجاز به افزودن محصول نیستید.");
+         return;
+       }
+
+       if(!title || !price || !description || !thumbnailFile){
         alert("لطفا نام و. قیمت را واردئ کن");
         return;
        }
 
+       const toBase64 = (file) =>
+        new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = (error) => reject(error);
+        });
+
+        const base64Thumbnail = await toBase64(thumbnailFile);
+
        const newProduct = {
         id: Date.now(),
         title,
-        price: Number(price)
+        price: Number(price),
+        description,
+        category:'new',
+        thumbnail: base64Thumbnail,
        }
-
-       setProducts([...products,newProduct]);
+       
+       const updateProduct = [...products, newProduct];
+       setProducts(updateProduct);
+       localStorage.setItem("products",JSON.stringify(updateProduct));
+       setSelectedCategory("all");
        setTitle('');
        setPrice('');
+       setDescription('');
+       setThumbnailFile(null);
+       
   }
+
+  
+  
   
 
    const handleAddToOrder = (productId) =>{
@@ -96,14 +144,29 @@ function Products() {
                 setSearchInput("");
            }}}     
         value={searchInput} onChange={(e)=> setSearchInput(e.target.value)}/>
-        <form onSubmit={handleAddProduct} className='mb-6 space-y-4 flex flex-col p-3 dark:bg-gray-900'>
-            <input type='text' placeholder='product name' value={title} onChange={(e)=>{setTitle(e.target.value)}} 
+         
+              <form onSubmit={handleAddProduct} className='mb-6 space-y-4 flex flex-col p-3 dark:bg-gray-900'>
+            <input type='text' placeholder='product name' value={title || ""} onChange={(e)=>{setTitle(e.target.value)}} 
             className='border p-2 dark:bg-gray-800'
             style={{width:'30rem'}}/>
-            <input type='text' placeholder='product price' value={price} onChange={(e)=>{setPrice(e.target.value)}}
+            <input type='text' placeholder='product price' value={price || ""} onChange={(e)=>{setPrice(e.target.value)}}
             className='border p-2 dark:bg-gray-800'
             style={{width:'30rem'}}/>
+            <textarea type='text' placeholder='product description' value={description} onChange={(e)=>{ setDescription(e.target.value)}}
+            className='border p-2 dark:bg-gray-800'
+            style={{width:'30rem', height:'3rem'}}/>
+            <input type='file' accept='image/*' onChange={(e)=>{ setThumbnailFile(e.target.files[0])}}
+            className='border p-2 dark:bg-gray-800'
+            style={{width:'30rem'}}/>
+            {thumbnailFile && (
+                     <img
+                         src={URL.createObjectURL(thumbnailFile)}
+                         alt=""
+                         style={{ width: '10rem', backgroundColor:"transparent", marginTop: '1rem' }}
+                       />
+  )}
             <button className='bg-blue-600 text-white px-4 py-2 rounded'
+             type='submit'
             style={{width:'20rem', marginLeft:'5rem'}}>
                اضافه کردن
             </button>

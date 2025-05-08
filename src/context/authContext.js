@@ -52,6 +52,14 @@ export const AuthProvider = ({children}) =>{
             localStorage.setItem("token","fake_token");
             localStorage.setItem("currentUser", JSON.stringify({email}));
             setIsAuthenticated(true);
+
+            const storedUser = JSON.parse(localStorage.getItem("users")||[]);
+            const userExite = storedUser.some(u => u.email === email);
+            if(!userExite){
+               const newUser = {email, id: Date.now() };
+               localStorage.setItem("users", JSON.stringify([...storedUser,newUser]));
+            }
+
             return true;
           }
           return false;
