@@ -55,6 +55,10 @@ function Orders() {
    const handleEditClick = (order) =>{
        setEditingOrders(order.id);
        setEditedQuantity(order.quantity);
+       const product = products.find(p => p.id === order.productId);
+       if (!product) {
+         return <p>محصول یافت نشد</p>; // یا هر رفتار جایگزین
+       }
    }
 
    const handleSave = (orderId) =>{
@@ -98,6 +102,7 @@ function Orders() {
         const quantity = Number(order.quantity) || 0;
         return sum + (product ? (product.price || 0) * quantity : 0);
     },0);
+
   
     return (
       <DashboardLayout>
@@ -106,7 +111,7 @@ function Orders() {
         <div className='mb-6 dark:bg-gray-900 dark:text-white p-2'>
             <label className='block mb-2 font-medium'>فیلتر بر اساس محصول:</label>
             <select value={selectedCategory} onChange={(e)=>{setSelectedCategory(e.target.value)}}
-                className='border rounded p-2 w-18 dark:bg-gray-900'>
+                className='border rounded p-2 w-18 bg-blue-200 dark:bg-gray-900'>
                 <option value="all">همه</option>
                 {categoriesInOrder.map((cat, index)=>{
                    return <option value={cat} key={index}>{cat}</option>
@@ -121,11 +126,11 @@ function Orders() {
         </div>
 
         {filteredOrders.length === 0 ? (<p className='text-gray-500 dark:text-white'>سفارشی ثبت نشده</p>):(
-            <ul className='space-y-6  dark:bg-gray-900 dark:text-gray-300'>
+            <ul className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6 dark:bg-gray-900 dark:text-gray-300'>
                 {filteredOrders.map((order)=>{
                     const product = findProductById(order.productId);
                     return(
-                        <li key={order.id} className='border p-4 roundedshadow-md flex flex-col gap-2'>
+                        <li key={order.id} className='border bg-blue-300 rounded-lg p-4 roundedshadow-md flex flex-col gap-2 dark:bg-gray-800'>
                             <div className='space-y-2'>
                                 <div>محصول :<span className='font-semibold'> {product?.title || "نامشخص"}</span></div>
                                 <div>تاریخ سفارش : {order.date}</div>
@@ -147,13 +152,14 @@ function Orders() {
                             </div>
                                 <div>قیمت : {product?.price || "?"}</div>
                             </div>
+                        
                             <button onClick={()=> handleDeleteOrder(order.id)}
-                                className='bg-red-500 text-white px-2 py-2 w-48 rounded hover:bg-red-600'>
+                                className='bg-red-500 text-white px-2 py-2 mt-8 w-48 rounded hover:bg-red-600'>
                                  حذف
                             </button>
                             <button onClick={()=> handleDelivered(order.id)}
                                 className='bg-blue-500 text-white px-4 py-2 w-48 rounded hover:bg-blue-600'>تحویل داده شد</button>
-                                <img src={product.thumbnail} style={{width:'200px', height:'200px', marginLeft:'50rem', marginTop:'-13rem'}} className='dark:bg-gray-900'/>
+                                <img src={product.thumbnail} style={{width:'13rem', height:'13rem',marginLeft:'17rem',marginTop:'-13.5rem'}} className='dark:bg-gray-800'/>
                         </li>
                     )
                 })}
