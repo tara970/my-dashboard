@@ -1,13 +1,15 @@
 import React from 'react'
 import { useAuth } from '../context/authContext'
 import FavoriteButton from '../component/favoriteButton';
+import DashboardLayout from '../component/dashboardLayout';
 
 function Favorite() {
   
   const {favorites} = useAuth();
   
   return (
-    <div className="p-6 dark:bg-gray-900 min-h-screen">
+    <DashboardLayout>
+      <div className="p-6 dark:bg-gray-900 min-h-screen">
       <h2 className="text-2xl font-bold mb-6 dark:text-white">محصولات علاقه‌مندی</h2>
 
       {favorites.length === 0 ? (
@@ -17,7 +19,7 @@ function Favorite() {
           {favorites.map((product) => (
             <div
               key={product.id}
-              className="border rounded-lg p-4 shadow-md dark:bg-gray-800 dark:text-white relative"
+              className="border rounded-lg p-4 shadow-md bg-blue-300 dark:bg-gray-800 dark:text-white relative"
             >
               <img
                 src={product.thumbnail}
@@ -36,6 +38,7 @@ function Favorite() {
         </div>
       )}
     </div>
+    </DashboardLayout>
   )
 }
 

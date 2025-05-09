@@ -9,6 +9,7 @@ function Dashboard() {
    const [orders, setOrders] = useState([]);
    const [users, setUsers] = useState([]);
    const [favorites, setFavorites] = useState([]);
+   const [dark, setDark] = useState(false);
  
    useEffect(() => {
      setProducts(JSON.parse(localStorage.getItem('products')) || []);
@@ -37,10 +38,28 @@ function Dashboard() {
        تعداد: favorites.length,
      }
    ];
+
+   useEffect(() => {
+    const observer = new MutationObserver(() => {
+      const isDark = document.documentElement.classList.contains("dark");
+      setDark(isDark);
+    });
+  
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+  
+    
+    setDark(document.documentElement.classList.contains("dark"));
+  
+    return () => observer.disconnect();
+  }, []);
+  
  
    return (
      <DashboardLayout>
-       <h2 className='size-lg text-gray-400 dark:text-red-500 mb-5 dark:bg-gray-900 p-4'>داشبورد</h2>
+       <h2 className='size-xl text-gray-600 dark:text-red-500 mb-5 dark:bg-gray-900 p-4'>داشبورد</h2>
  
        <div style={{ display: 'flex', justifyContent: 'space-around', marginBottom: '30px', padding: '7px' }} 
          className='dark:bg-gray-900 dark:text-white'
@@ -57,7 +76,7 @@ function Dashboard() {
          <YAxis />
          <Tooltip />
          <Legend />
-         <Bar dataKey="تعداد" fill="red" />
+         <Bar dataKey="تعداد" fill={dark ? 'red' : 'blue'} />
        </BarChart>
      </DashboardLayout>
   )

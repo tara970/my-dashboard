@@ -70,7 +70,7 @@ function Users() {
             style={{ marginRight: '10px' }}
           />
           <select value={role} onChange={(e) => setRole(e.target.value)}
-            className='border rounded p-2 dark:bg-gray-800'>
+            className='border bg-blue-200 rounded p-2 dark:bg-gray-800'>
             <option value="user">کاربر عادی</option>
             <option value="admin">مدیر</option>
           </select>
@@ -81,13 +81,13 @@ function Users() {
             </div>
   
         <div className='dark:bg-gray-900 dark:text-gray-300'>
-          <h4 className='text-xl font-semibold mb-4 dark:text-red-500 ml-4 p-2'>لیست کاربران</h4>
+          <h4 className='text-xl font-semibold mb-4dark:text-red-500 ml-4 p-2 mb-7'>لیست کاربران</h4>
           {users.length === 0 ? (
             <p className='text-gray-500'>کاربری وجود ندارد.</p>
           ) : (
-            <div className='overflow-x-auto dark:bg-gray-900'>
+            <div className='bg-blue-300 rounded-lg overflow-x-auto dark:rounded dark:bg-gray-900'>
               <table className='min-w-full border border-gray-300'>
-              <thead className='bg-gray-100  dark:bg-gray-900'>
+              <thead className='bg-gray-100 dark:bg-gray-800'>
                 <tr>
                   <th className='px-6 py-3 border-b'>ایمیل</th>
                   <th className='px-6 py-3 border-b'>نقش</th>
@@ -96,7 +96,7 @@ function Users() {
               </thead>
               <tbody>
                 {users.map((user) => (
-                  <tr key={user.id} className='hover:bg-gray-600'>
+                  <tr key={user.id} className='hover:bg-blue-400 dark:hover:bg-gray-600'>
                     <td className='px-6 py-4 border-b'>{user.email}</td>
                     <td className='px-6 py-4 border-b'>{user.role === 'admin' ? 'مدیر' : 'کاربر عادی'}</td>
                     <td className='px-6 py-4 border-b'>
