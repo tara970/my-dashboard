@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import DashboardLayout from '../component/dashboardLayout'
 import axios from 'axios';
 import FavoriteButton from '../component/favoriteButton';
+import { Link } from 'react-router-dom';
 
 function Products() {
   
@@ -83,6 +84,7 @@ function Products() {
         category:'new',
         thumbnail: base64Thumbnail,
         invetory,
+        images: [base64Thumbnail],
        }
        
        const updateProduct = [...products, newProduct];
@@ -191,7 +193,8 @@ function Products() {
                   filteredProducts.map((product) => (
                     <li key={product.id} className={`bg-blue-300 p-4 rounded-lg shadow-lg border border-white-1 dark:bg-gray-800
                   ${product.invetory === 0 ? 'opacity-40' : 'bg-white'}`}>
-                      <img alt={product.title} src={product.thumbnail} style={{width:'10rem'}}/>
+                      <Link to={`/product/${product.id}`}>
+                      <img alt={product.title} src={product.thumbnail} style={{width:'10rem'}}/></Link>
                         <h2 className='font-semibold dark:text-white'>{product.title}</h2>
                         <p className='text-sm text-gray-600'>{product.description}</p>
                         <p className='font-bold mt-2 dark:text-white'>{product.price}</p>
