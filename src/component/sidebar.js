@@ -15,9 +15,9 @@ function Sidebar() {
       className="text-2xl p-2 focus:outline-none transition-all duration-300"
     >
       {darkMode ? (
-        <FaSun className="text-yellow-400" />
+        <FaSun className="text-yellow-400 hover:scale-110" />
       ) : (
-        <FaMoon className="text-gray-800" />
+        <FaMoon className="text-gray-800 hover:scale-110" />
       )}
     </button>
         <h2 className='text-xl font-bold mb-6' style={{marginLeft:'4rem',marginTop:'7rem'}}>پنل ادمین</h2>

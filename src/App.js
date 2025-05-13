@@ -8,6 +8,8 @@ import Orders from './pages/orders'
 import Users from './pages/users'
 import Home from './pages/home'
 import Favorite from './pages/favorite'
+import ProductDetails from './pages/productDetails'
+import Item from './pages/item'
 
 
 function App() {
@@ -19,6 +21,8 @@ function App() {
         <Route  element={<ProtectedRoute/>}>
         <Route path='/dashboard' element={<Dashboard/>}/>
         <Route path='/products' element={<Products/>}/>
+        <Route path='/product/:id' element={<ProductDetails/>}/>
+        <Route path='/product/:id/item' element={<Item/>}/>
         <Route path='/orders' element={<Orders/>}/>
         <Route path='/users' element={<Users/>}/>
         <Route path='/favorite' element={<Favorite/>}/>

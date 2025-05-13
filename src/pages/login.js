@@ -25,10 +25,11 @@ function Login() {
   });
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 dark:text-white">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300 to-blue-500
+     dark:bg-gradient-to-br dark:from-gray-800 dark:to-gray-900 dark:text-white">
       <form
         onSubmit={formik.handleSubmit}
-        className="bg-white p-8 rounded shadow-md w-80 dark:bg-gray-900 dark:border border-white-600"
+        className="bg-blue-400 p-8 rounded shadow-md w-80 dark:bg-gray-900 dark:border border-white-600"
       >
         <h2 className="text-xl font-bold mb-10 ml-24">ورود</h2>
         <input
